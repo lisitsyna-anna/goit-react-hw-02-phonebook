@@ -38,15 +38,17 @@ export class App extends Component {
 
     if (isNameAdded) {
       Notify.failure(`${name} is alredy in contacts`);
-      return;
+      return false;
     } else if (isNumberAdded) {
       Notify.failure(`${number} is alredy in contacts`);
-      return;
+      return false;
     }
 
     this.setState(({ contacts }) => ({
       contacts: [newContact, ...contacts],
     }));
+
+    return true;
   };
 
   onChangeFilter = e => {

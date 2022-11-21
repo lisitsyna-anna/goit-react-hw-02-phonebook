@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import { Form, Label, Input, Button } from './ContactForm.styled';
 
 export class ContactForm extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  };
   state = {
     name: '',
     number: '',
@@ -22,9 +25,9 @@ export class ContactForm extends Component {
 
     const { name, number } = this.state;
 
-    this.props.onSubmit(name, number);
-
-    this.setState({ name: '', number: '' });
+    if (this.props.onSubmit(name, number)) {
+      this.setState({ name: '', number: '' });
+    }
   };
 
   render() {
@@ -64,7 +67,3 @@ export class ContactForm extends Component {
     );
   }
 }
-
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
